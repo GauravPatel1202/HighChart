@@ -30,7 +30,17 @@
 				document.getElementsByTagName( 'head' )[0].appendChild( link );
 			}
 		</script>
-
+		<style>
+		iframe.zoom {
+		    -ms-zoom: 0.75;
+		    -moz-transform: scale(0.75);
+		    -moz-transform-origin: 0 0;
+		    -o-transform: scale(0.75);
+		    -o-transform-origin: 0 0;
+		    -webkit-transform: scale(0.75);
+		    -webkit-transform-origin: 0 0;
+		}
+		</style>
 		<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
 		<![endif]-->
@@ -88,7 +98,7 @@
 				</section>
 
 				<section>
-					<h2>Javascript API</h2>
+					<h2>How an API works</h2>
 					<p>API: Application programming interface</p>
 					<div class="fragment">
 						<p>Array of values passed to a function</p>
@@ -140,15 +150,28 @@ $('#container').highcharts(args);
 				</section>
 
 				<section>
-					<h2>Highcharts Resources</h2>
-					<ul>
-						<li><a href="http://www.highcharts.com/demo">Demos / Examples</a></li>
-						<li><a href="http://www.highcharts.com/docs">Documentation / How-to</a></li>
-						<li><a href="http://api.highcharts.com/highcharts">API Reference</a></li>
-						<li><a href="http://jsfiddle.net/">jsfiddle.net</a></li>
-						<li><a href="http://stackoverflow.com/questions/tagged/highcharts">Stack Overflow: Highcharts</a></li>
-					</ul>
-
+					<section>
+						<h2>Highcharts Resources</h2>
+						<ul>
+							<li><a target="_blank" href="http://www.highcharts.com/demo">Demos / Examples</a></li>
+							<li><a target="_blank" href="http://www.highcharts.com/docs">Documentation / How-to</a></li>
+							<li><a target="_blank" href="http://api.highcharts.com/highcharts">API Reference</a></li>
+							<li><a target="_blank" href="http://jsfiddle.net/">jsfiddle.net</a></li>
+							<li><a target="_blank" href="http://stackoverflow.com/questions/tagged/highcharts">Stack Overflow: Highcharts</a></li>
+						</ul>
+					</section>
+					<section>
+						<iframe class="zoom" src="http://www.highcharts.com/demo" height="1010" width="130%" frameborder="0" style="background:white; padding:15px; border-radius:5px; max-width: 130%; max-height: 120%;"></iframe>
+					</section>
+					<section>
+						<iframe class="zoom" src="http://www.highcharts.com/docs" height="1010" width="130%" frameborder="0" style="background:white; padding:15px; border-radius:5px; max-width: 130%; max-height: 120%;"></iframe>
+					</section>
+					<section>
+						<iframe class="zoom" src="http://api.highcharts.com/highcharts" height="1010" width="130%" frameborder="0" style="background:white; padding:15px; border-radius:5px; max-width: 130%; max-height: 120%;"></iframe>
+					</section>
+					<section>
+						<img width="289" height="451" src="img/api.png" alt="API">
+					</section>
 				</section>
 
 				<section>
@@ -202,6 +225,9 @@ title: {
 					<h2>Data: Series</h2>
 					<p>Each group of data points is a series ...</p>
 					<pre><code data-trim>
+chart: {
+  type: 'column'	
+},
 series: [{
     data: [29.9, 71.5, 106.4, 129.2, 144.0, 176.0]
   }, {
@@ -216,6 +242,33 @@ xAxis: {
 }
 						</code></pre>
 					</div>
+					<div class="fragment">
+						<img width="493" height="294" src="img/series.png" alt="Nulls">
+					</div>
+				</section>
+
+				<section>
+					<h2>Data: Series</h2>
+					<p>Skip a point using <code>null</code> and leave empty spot:</p>
+					<pre><code data-trim>
+series: [{
+  type: 'line',
+  data: [29.9, 71.5, 106.4, null, 144.0, 176.0]
+}],
+					</code></pre>
+					<div class="fragment">
+						<p>Connect a line through the <code>null</code>:</p>
+						<pre><code data-trim>
+plotOptions: {
+  line: {
+    connectNulls: true
+  }
+},
+						</code></pre>
+					</div>
+					<div class="fragment">
+						<img width="900" height="246" src="img/nulls.png" alt="Nulls">
+					</div>
 				</section>
 
 				<section>
@@ -223,6 +276,7 @@ xAxis: {
 					<p>Alternatively, we can provide both X and Y coordinates for points:</p>
 					<pre><code data-trim>
 series: [{
+  type: 'scatter',
   data: [
     [0, 29.9],
     [1, 71.5],
@@ -230,6 +284,9 @@ series: [{
   ]
 }]
 					</code></pre>
+					<div class="fragment">
+						<img width="491" height="259" src="img/scatter.png" alt="Nulls">
+					</div>
 				</section>
 
 				<section>
@@ -248,8 +305,8 @@ series: [{
 series: [{
   data: [
     [Date.UTC(2010, 0, 1), 29.9],
-    [Date.UTC(2010, 2, 1), 71.5],
-    [Date.UTC(2010, 3, 1), 106.4]
+    [Date.UTC(2010, 2, 14), 71.5],
+    [Date.UTC(2010, 3, 9), 106.4]
 }]
 					</code></pre>
 				</section>
@@ -275,7 +332,44 @@ series: [{
 
 				<section>
 					<h2>Taking this home</h2>
+					<p>You'll need the ability to put code on your site.</p>
+					<p>Also, you'll need to include script files.</p>
 					<pre><code data-trim>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
+<script src="http://code.highcharts.com/highcharts.js"></script>
+					</code></pre>
+					<p><i>* Your site may already use jQuery</i></p>
+				</section>
+
+				<section>
+					<h2>Taking this home: WordPress</h2>
+					<p>Some tips for using Highcharts in WordPress</p>
+					<ul>
+						<li>Post editor will strip out <code>&lt;script&gt;</code> <a href="http://codex.wordpress.org/Roles_and_Capabilities#unfiltered_html">for non-admin</a>
+							<ul>
+								<li>Enqueue script for specific posts</li>
+								<li>In top of single.php... </li>
+							</ul>
+						</li>
+					</ul>
+					<pre><code data-trim>
+if ( in_category('highcharts') ){
+  wp_enqueue_script('highcharts', 'http://code...', array('jQuery') );
+}
+					</code></pre>
+				</section>
+
+				<section>
+					<h2>Taking this home: WordPress</h2>
+					<p>Some tips for using Highcharts in WordPress</p>
+					<ul>
+						<li>Build in jsFiddle and then paste into post editor</li>
+					</ul>
+					<p>In top of single.php... </i>
+					<pre><code data-trim>
+if ( in_category('highcharts') ){
+wp_enqueue_script('highcharts', 'http://code...', array('jQuery') );
+}
 					</code></pre>
 				</section>
 
@@ -298,10 +392,35 @@ series: [{
 				</section>
 
 				<section>
-					<h2>Advanced: Combining Javascript tools</h2>
-					<p>Using waypoints to draw a chart when a user scrolls to it</p>
-					<pre><code data-trim>
-					</code></pre>
+					<section>
+						<h2>Advanced: Combining Javascript tools</h2>
+						<p>Using <a href="http://imakewebthings.com/jquery-waypoints/">Waypoints</a> to draw a chart when a user scrolls to it</p>
+						<a href="http://www.pewresearch.org/next-america/"><img src="img/next-am.gif" width="500"/></a>
+					</section>
+					<section>
+						<pre><code data-trim>
+var args = {
+  ...
+  series: [
+    data: [null, null, null, null, null]
+  ]
+};
+var actualSeries = [{
+  name: 'Actual Series',
+  data: [5, 40, 32, 74, 99]
+}];
+</code></pre>
+<pre><code data-trim>
+$('#chart').highcharts(args);
+var chart = $('#chart').highcharts();
+
+$("#chart").waypoint( function(direction) {
+  chart.series[0].remove();
+  chart.addSeries(actualSeries, false);
+  chart.redraw();
+});
+						</code></pre>
+					</section>
 				</section>
 
 				<section>
