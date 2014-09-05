@@ -1,4 +1,15 @@
 <!doctype html>
+
+<? if ( $_POST['submit'] && $_POST['nobots'] == '' ) {
+	// Process Form
+	unset($_POST['submit']);
+	unset($_POST['nobots']);
+	$fp = fopen('results.csv', 'w');
+	fputcsv($fp, $_POST);
+	fclose($fp);
+} ?>
+
+
 <html lang="en">
 
 	<head>
@@ -104,8 +115,15 @@
 
 	<body>
 
+		<? if ( $_POST['submit'] && $_POST['nobots'] == '' ) { ?>
 
 		<form>
+			<h3>You rock</h3>
+		</form>
+
+		<? } else { ?>
+		å
+		<form method="post">
 			<h3>Dataviz poll</h3>
 			<p></p>
 			<div>
@@ -118,12 +136,12 @@
 			</div>
 			<div>
 				<label>What other tools have you used for data visualization?</label>
-				<label class="click"><input type="checkbox" name="dataviz" value="Google Charts"><span></span>Google Charts</label>
-				<label class="click"><input type="checkbox" name="dataviz" value="D3.js"><span></span>D3.js</label>
-				<label class="click"><input type="checkbox" name="dataviz" value="Raphael.js"><span></span>Raphael.js</label>
-				<label class="click"><input type="checkbox" name="dataviz" value="Mapbox"><span></span>Mapbox</label>
-				<label class="click"><input type="checkbox" name="dataviz" value="Leaflet"><span></span>Leaflet</label>
-				<label class="click"><input type="checkbox" name="dataviz" value="CartoDB"><span></span>CartoDB</label>
+				<label class="click"><input type="checkbox" name="dataviz[]" value="Google Charts"><span></span>Google Charts</label>
+				<label class="click"><input type="checkbox" name="dataviz[]" value="D3.js"><span></span>D3.js</label>
+				<label class="click"><input type="checkbox" name="dataviz[]" value="Raphael.js"><span></span>Raphael.js</label>
+				<label class="click"><input type="checkbox" name="dataviz[]" value="Mapbox"><span></span>Mapbox</label>
+				<label class="click"><input type="checkbox" name="dataviz[]" value="Leaflet"><span></span>Leaflet</label>
+				<label class="click"><input type="checkbox" name="dataviz[]" value="CartoDB"><span></span>CartoDB</label>
 			</div>
 			<div>
 				<label>How well do you know Javascript or jQuery?</label>
@@ -165,8 +183,9 @@
 				</select>
 			</div>
 
-			<input type="submit" value="Submit your answers" />
+			<input type="submit" name="submit" value="Submit your answers" />
+			<input type="hidden" name="nobots" value="" />
 		</form>
-
+		<? } ?>
 	</body>
 </html>
