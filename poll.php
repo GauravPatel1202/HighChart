@@ -18,7 +18,86 @@
 		<link rel="stylesheet" href="lib/css/zenburn.css">
 
 		<style>
-		
+			html, body {
+				width: auto;
+				height: auto;
+				overflow: auto;
+			}
+			form {
+			color: #FFF;
+			width: 80%;
+			margin: 20px auto 100px;
+			font-family: "Lato", sans-serif;
+			font-size: 1.4em;
+			max-width:400px;
+			line-height: 1.4;
+			}
+			form div {
+				margin-bottom:30px;
+			}
+			label {
+				display:block;
+			}
+			.click {
+				cursor:pointer;
+				padding-top: 8px;
+			}
+			.click span {
+				width: 17px;
+				height: 17px;
+				border:1px solid black;
+				border-radius: 50%;
+				background: #eee;
+				display: inline-block;
+				margin-right: 10px;
+				position: relative;
+				top: 2px;
+			}
+			input[type=checkbox]:checked + span {
+				background: #46A23E;
+				-webkit-box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.75);
+				-moz-box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.75);
+				box-shadow: inset 0px 0px 5px 0px rgba(0,0,0,0.75);
+			} 
+			input[type="checkbox"] {
+				position: absolute;
+				left: -150000px
+			}
+			select {
+			font-size: 1em;
+			background: #FFF;
+			display: block;
+			margin: 10px 0 0;
+			width: 100%;
+			}
+			input[type=text] {
+				font-size: 0.9em;
+				padding: 5px 2%;
+				border-radius: 6px;
+				border: 1px solid #CCC;
+				margin-top: 10px;
+				width: 96%;
+			}
+			input[type="submit"] {
+			width: 100%;
+			padding: 11px;
+			font-size: 0.8em;
+			background: #C2C2C2;
+			border: 1px solid #333;
+			border-radius: 6px;
+			color: #FFF;
+			text-shadow: -1px -1px 0px #777;
+			text-transform: uppercase;
+			}
+			input[type="submit"]:hover {
+				background:#B8B8B8;
+			}
+			input[type="submit"]:active {
+				position: relative;
+				left:1px;
+				top:1px;
+				outline: 0;
+			}
 		</style>
 
 	</head>
@@ -27,24 +106,29 @@
 
 
 		<form>
+			<h3>Dataviz poll</h3>
+			<p></p>
 			<div>
 				<label>Have you ever used Highcharts?</label>
 				<select name="highcharts">
+					<option></option>
 					<option>Yes</option>
 					<option>No</option>
 				</select>
 			</div>
 			<div>
 				<label>What other tools have you used for data visualization?</label>
-				<input type="checkbox" name="dataviz" value="Google Charts">Google Charts<br />
-				<input type="checkbox" name="dataviz" value="D3.js">D3.js<br />
-				<input type="checkbox" name="dataviz" value="Raphael.js">Raphael.js<br />
-				<input type="checkbox" name="dataviz" value="Mapbox">Mapbox<br />
-				<input type="checkbox" name="dataviz" value="Leaflet">Leaflet<br />
+				<label class="click"><input type="checkbox" name="dataviz" value="Google Charts"><span></span>Google Charts</label>
+				<label class="click"><input type="checkbox" name="dataviz" value="D3.js"><span></span>D3.js</label>
+				<label class="click"><input type="checkbox" name="dataviz" value="Raphael.js"><span></span>Raphael.js</label>
+				<label class="click"><input type="checkbox" name="dataviz" value="Mapbox"><span></span>Mapbox</label>
+				<label class="click"><input type="checkbox" name="dataviz" value="Leaflet"><span></span>Leaflet</label>
+				<label class="click"><input type="checkbox" name="dataviz" value="CartoDB"><span></span>CartoDB</label>
 			</div>
 			<div>
-				<label>How well do you know Javascript/jQuery?</label>
+				<label>How well do you know Javascript or jQuery?</label>
 				<select name="javascript">
+					<option></option>
 					<option>0</option>
 					<option>1</option>
 					<option>2</option>
@@ -61,6 +145,7 @@
 			<div>
 				<label>What CMS does your organization use?</label>
 				<select name="cms">
+					<option></option>
 					<option>WordPress</option>
 					<option>Drupal</option>
 					<option>Joomla</option>
@@ -68,18 +153,20 @@
 				</select>
 			</div>
 			<div>
+				<label>If other, please enter name of CMS:</label>
+				<input type="text" name="cms_other" placeholder="Optional" />
+			</div>
+			<div>
 				<label>Are you going to the Highcharts session on Saturday?</label>
 				<select name="attendance">
+					<option></option>
 					<option>Yes</option>
 					<option>No</option>
 				</select>
 			</div>
 
-
+			<input type="submit" value="Submit your answers" />
 		</form>
-
-
-
 
 	</body>
 </html>
