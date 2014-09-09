@@ -2,9 +2,11 @@
 
 <? if ( $_POST['submit'] && $_POST['nobots'] == '' ) {
 	// Process Form
+	$_POST['dataviz'] = serialize($_POST['dataviz']);
 	unset($_POST['submit']);
 	unset($_POST['nobots']);
-	$fp = fopen('results.csv', 'w');
+	$completed = true;
+	$fp = fopen('results.csv', 'a');
 	fputcsv($fp, $_POST);
 	fclose($fp);
 } ?>
@@ -115,14 +117,18 @@
 
 	<body>
 
-		<? if ( $_POST['submit'] && $_POST['nobots'] == '' ) { ?>
+		<? if ( $completed == true ) { ?>
 
 		<form>
 			<h3>You rock</h3>
+			<p>Thanks for taking the <a href="http://ona14.journalists.org/sessions/highcharts/#.VA8c3WRdW-U">Highcharts How-To</a> poll. I hope to see you in the session!</p>
+			<p>See up-to-the-minute results on the <a href="http://adam.slides/Highcharts-Presentation/dashboard.php">dashboard</a>, or wait to see them in the session.</p>
 		</form>
 
+
 		<? } else { ?>
-		å
+		
+
 		<form method="post">
 			<h3>Dataviz poll</h3>
 			<p></p>

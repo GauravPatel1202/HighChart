@@ -1,4 +1,3 @@
-<!doctype html>
 <html lang="en">
 
 	<head>
@@ -16,7 +15,6 @@
 
 		<link rel="stylesheet" href="css/reveal.min.css">
 		<link rel="stylesheet" href="css/theme/default.css" id="theme">
-
 		<!-- For syntax highlighting -->
 		<link rel="stylesheet" href="lib/css/zenburn.css">
 
@@ -40,26 +38,7 @@
 		    -webkit-transform: scale(0.75);
 		    -webkit-transform-origin: 0 0;
 		}
-		#charts {
-			top:-400px !important;
-		}
-		#charts_left {
-			float:left;
-			width: 40%;
-		}
-		#tools {
-			
-		}
-		#javascript {
-			float:left;
-			width:60%;
-		}
-		#cms {
-
-		}
-		#responses {
-
-		}
+		
 		</style>
 		<!--[if lt IE 9]>
 		<script src="lib/js/html5shiv.js"></script>
@@ -74,12 +53,7 @@
 			<div class="slides">
 
 				<section id="charts">
-					<div id="charts_left">
-						<div id="tools"></div>
-						<div id="cms"></div>
-					</div>
-					<div id="javascript"></div>
-					<div id="responses"></div>
+					<iframe src="dashboard.php" height="780" width="100%" scrolling="no" frameborder="0" style="background:white; padding:0 15px; border-radius:5px;"></iframe>
 
 				</section>
 
@@ -365,6 +339,8 @@ series: [{
 <script src="http://code.highcharts.com/highcharts.js"></script>
 					</code></pre>
 					<p><i>* Your site may already use jQuery</i></p>
+					<p>jQuery is best included in the <code>&lt;head&gt;</code> of your page</p>
+					<p>Highcharts is best included just before the closing <code>&lt;/body&gt;</code> tag</p>
 				</section>
 
 				<section>
@@ -387,34 +363,69 @@ if ( in_category('highcharts') ){
 
 				<section>
 					<h2>Taking this home: WordPress</h2>
-					<p>Some tips for using Highcharts in WordPress</p>
+					<p>Consider using iframes</p>
 					<ul>
-						<li>Build in jsFiddle and then paste into post editor</li>
+						<li>Build on a blank HMTL page</li>
+						<li>Put iframe code within post</li>
+						<li>Downside: responsiveness can be tricky
+							<ul>
+								<li>See NPR's <a href="http://blog.apps.npr.org/pym.js/">Pym.js</a></li>
+							</ul>
+						</li>
 					</ul>
-					<p>In top of single.php... </i>
-					<pre><code data-trim>
-if ( in_category('highcharts') ){
-wp_enqueue_script('highcharts', 'http://code...', array('jQuery') );
-}
-					</code></pre>
 				</section>
 
 				<section>
-					<h2>Advanced: Toggling data</h2>
-					<pre><code data-trim>
-					</code></pre>
+					<section>
+						<h2>Advanced: Toggling data</h2>
+						<ul>
+							<li>Create some HTML buttons</li>
+							<li>Style the buttons with your own CSS</li>
+							<li>Put your data into an array</li>
+							<li>Add jQuery to fire when they are clicked</li>
+						</ul>
+						<div class="fragment">
+							<pre><code data-trim>
+<div class="button active">Option 1</div>
+<div class="button">Option 2</div>
+<div class="button">Option 3</div>
+							</code></pre>
+						</div>
+					</section>
+					<section>
+						<h2>Advanced: Toggling data</h2>
+						<p>Now, add the javascript</p>
+						<pre><code data-trim>
+var dataArray = {
+  [5,4,3,2,1],
+  [8,2,3,8,2],
+  [0,0,6,8,9]	
+};
+
+var my_chart = $('#chart').highcharts();
+
+$('.button').on('click', function(){
+  var index = $(this).index('.button');
+  var newdata = dataArray[index];
+  $(this).addClass('active').siblings().removeClass('active');
+
+  $.each(my_chart.series[0].data, function(dataIndex, dataValue){
+    my_chart.series[0].data[dataIndex].update(newdata[dataIndex], false); 
+  });
+  my_chart.redraw();
+});
+						</code></pre>
+						<p>See Highcharts API <a href="http://api.highcharts.com/highcharts#Point.update">Point.update</a></p>
+					</section>
 				</section>
 
 				<section>
-					<h2>Advanced: Animating data</h2>
-					<pre><code data-trim>
-					</code></pre>
-				</section>
-
-				<section>
-					<h2>Advanced: Updating with AJAX</h2>
-					<pre><code data-trim>
-					</code></pre>
+					<h2>Advanced: Other data changes</h2>
+					<p>Combine Point.update with javascript <code>setInterval()</code> to:</p>
+					<ul>
+						<li>Animate data (Polarization example)</li>
+						<li>Update chart with AJAX (Poll dashboard)</li>
+					</ul>
 				</section>
 
 				<section>
@@ -480,130 +491,6 @@ $("#chart").waypoint( function(direction) {
 
 
 
-
-		<script src="http://code.highcharts.com/highcharts.js"></script>
-		<script>
-
-
-$(function () {
-    $('#tools').highcharts({
-        chart: {
-            type: 'bar'
-        },
-        title: {
-            text: 'Historic World Population by Region',
-            align: 'left'
-        },
-        subtitle: {
-            enabled: false
-        },
-        xAxis: {
-            categories: [
-                'Highcharts',
-                'Google Charts',
-                'D3.js',
-                'Raphael.js',
-                'Mapbox',
-                'Leaflet',
-                'CartoDB'
-            ],
-            title: {
-                text: null
-            }
-        },
-        yAxis: {
-            min: 0,
-            max: 100,
-            title: {
-                text: '% of responders using tool',
-                align: 'high'
-            },
-            labels: {
-                overflow: 'justify'
-            }
-        },
-        tooltip: {
-            valueSuffix: ' millions'
-        },
-        plotOptions: {
-            bar: {
-                dataLabels: {
-                    enabled: true
-                }
-            }
-        },
-        legend: {
-            enabled: false
-        },
-        credits: {
-            enabled: false
-        },
-        exporting: {
-          enabled: false
-        },
-        series: [{
-            data: [80, 31, 63, 20, 2, 4, 7]
-        }]
-    });
-
-
-    $('#javascript').highcharts({
-        chart: {
-            type: 'column'
-        },
-        title: {
-            text: 'Javascript and jQuery ability',
-            align: 'left'
-        },
-        subtitle: {
-            enabled: false
-        },
-        xAxis: {
-            categories: [
-                '0',
-                '1',
-                '2',
-                '3',
-                '4',
-                '5',
-                '6',
-                '7',
-                '8',
-                '9',
-                '10'
-            ]
-        },
-        yAxis: {
-            min: 0,
-            title: {
-                text: '% of responders'
-            }
-        },
-        tooltip: {
-            
-        },
-        credits: {
-            enabled: false
-        },
-        exporting: {
-          enabled: false
-        },
-        legend: {
-          enabled: false
-        },
-        plotOptions: {
-            column: {
-                borderWidth: 0
-            }
-        },
-        series: [{
-            data: [15, 20, 10, 10, 7, 8, 8, 4, 5, 2, 1]
-
-        }]
-    });
-});
-
-		</script>
 
 
 
