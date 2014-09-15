@@ -36,6 +36,9 @@
 				height: auto;
 				overflow: auto;
 			}
+			a {
+				color:#13DAEC;
+			}
 			form {
 			color: #FFF;
 			width: 80%;
