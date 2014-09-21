@@ -52,7 +52,7 @@
 			<!-- Any section element inside of this container is displayed as a slide -->
 			<div class="slides">
 
-				<section id="charts">
+				<section class="charts">
 					<iframe src="dashboard.php" height="770" width="100%" scrolling="no" frameborder="0" style="background:white; padding:0 15px; border-radius:5px;"></iframe>
 					<p>Take the poll: <a href="http://bit.ly/1oPB884">http://bit.ly/1oPB884</a></p>
 				</section>
@@ -69,12 +69,44 @@
 				</section>
 
 				<section>
+					<h2>What is Highcharts?</h2>
+					<ul>
+						<li>Noun: A Javascript library for data visualization</li>
+						<li>Takes arguments for customization to draw an SVG element</li>
+						<li>Anyone can use it once they understand how to change settings</li>
+					</ul>
+				</section>
+
+				<section>
+					<h2>Why Highcharts?</h2>
+					<ul>
+						<li>More customizable than Google Charts</li>
+						<li>Less complicated than D3.js or Raphael</li>
+						<li>More reliable than other plug and play tools
+							<ul>
+								<li>You can download the Javascript file and never worry about the service turning off.</li>
+							</ul>
+						</li>
+						<li>Heavily tested and IE6+ compatible</li>
+						<li>Don't take my word for it:
+							<ul>
+								<li>Fast Company: <a href="http://www.fastcolabs.com/3030447/how-highcharts-won-the-enterprise-data-viz-market">How Highcharts Won the Enterprise Data Viz Market</a></li>
+							</ul>
+						</li>
+					</ul>
+				</section>
+
+				<section>
 					<h2>Disclaimer</h2>
 					<p>Highcharts is free for non-commercial use,</p>
 					<p>but <a href="http://shop.highsoft.com/highcharts.html">requires a licence otherwise</a>.</p>
 					<p>Cost is $90 per website</p>
 					<br/>
 					<p><i>* I have no vested interest in Highcharts; I just think it's easier to learn and implement than D3</i></p>
+				</section>
+
+				<section class="charts">
+					<iframe src="dashboard.php" height="770" width="100%" scrolling="no" frameborder="0" style="background:white; padding:0 15px; border-radius:5px;"></iframe>
 				</section>
 
 				<section>
@@ -222,6 +254,11 @@ title: {
 				</section>
 
 				<section>
+					<h2>Hands-on Time</h2>
+					<p>Link: <a href="http://bit.ly/1rf6rxD">http://bit.ly/1rf6rxD</a></p>
+				</section>
+
+				<section>
 					<h2>Data: Series</h2>
 					<p>Each group of data points is a series ...</p>
 					<pre><code data-trim>
@@ -302,6 +339,9 @@ series: [{
 }],
 
 // datetime
+xAxis: {
+  type: 'datetime'
+},
 series: [{
   data: [
     [Date.UTC(2010, 0, 1), 29.9],
@@ -328,6 +368,7 @@ series: [{
 
 				<section>
 					<h2>Hands-on Time</h2>
+					<p>Link: <a href="http://bit.ly/1mx2Ueq">http://bit.ly/1mx2Ueq</a></p>
 				</section>
 
 				<section>
@@ -335,8 +376,8 @@ series: [{
 					<p>You'll need the ability to put code on your site.</p>
 					<p>Also, you'll need to include script files.</p>
 					<pre><code data-trim>
-<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"></script>
-<script src="http://code.highcharts.com/highcharts.js"></script>
+&lt;script src="http://ajax.googleapis.com/ajax/libs/jquery/1.8.2/jquery.min.js"&gt;&lt;/script&gt;
+&lt;script src="http://code.highcharts.com/highcharts.js"&gt;&lt;/script&gt;
 					</code></pre>
 					<p><i>* Your site may already use jQuery</i></p>
 					<p>jQuery is best included in the <code>&lt;head&gt;</code> of your page</p>
@@ -347,10 +388,10 @@ series: [{
 					<h2>Taking this home: WordPress</h2>
 					<p>Some tips for using Highcharts in WordPress</p>
 					<ul>
-						<li>Post editor will strip out <code>&lt;script&gt;</code> <a href="http://codex.wordpress.org/Roles_and_Capabilities#unfiltered_html">for non-admin</a>
+						<li>Post editor will strip out <code>&lt;script&gt;</code> <a href="http://codex.wordpress.org/Roles_and_Capabilities#unfiltered_html">for non-admin</a></li>
+						<li>Always enqueue scripts
 							<ul>
-								<li>Enqueue script for specific posts</li>
-								<li>In top of single.php... </li>
+								<li>Maybe tie it to a post category:</li>
 							</ul>
 						</li>
 					</ul>
@@ -362,27 +403,16 @@ if ( in_category('highcharts') ){
 				</section>
 
 				<section>
-					<h2>Taking this home: WordPress</h2>
-					<p>Consider using iframes</p>
-					<ul>
-						<li>Build on a blank HMTL page</li>
-						<li>Put iframe code within post</li>
-						<li>Downside: responsiveness can be tricky
-							<ul>
-								<li>See NPR's <a href="http://blog.apps.npr.org/pym.js/">Pym.js</a></li>
-							</ul>
-						</li>
-					</ul>
+					<h2>Advanced: Methods</h2>
+					<p>Interacting with charts after they are drawn</p>
 				</section>
 
 				<section>
 					<section>
-						<h2>Advanced: Toggling data</h2>
+						<h2>Advanced: Toggling data (Step 1)</h2>
 						<ul>
 							<li>Create some HTML buttons</li>
 							<li>Style the buttons with your own CSS</li>
-							<li>Put your data into an array</li>
-							<li>Add jQuery to fire when they are clicked</li>
 						</ul>
 						<div class="fragment">
 							<pre><code data-trim>
@@ -393,9 +423,13 @@ if ( in_category('highcharts') ){
 						</div>
 					</section>
 					<section>
-						<h2>Advanced: Toggling data</h2>
-						<p>Now, add the javascript</p>
-						<pre><code data-trim>
+						<h2>Advanced: Toggling data (Step 2)</h2>
+						<ul>
+							<li>Create an array with all your series data</li>
+							<li>Add jQuery to fire when buttons are clicked</li>
+						</ul>
+						<div class="fragment">
+							<pre><code data-trim>
 var dataArray = {
   [5,4,3,2,1],
   [8,2,3,8,2],
@@ -414,8 +448,9 @@ $('.button').on('click', function(){
   });
   my_chart.redraw();
 });
-						</code></pre>
-						<p>See Highcharts API <a href="http://api.highcharts.com/highcharts#Point.update">Point.update</a></p>
+							</code></pre>
+							<p>See Highcharts API <a href="http://api.highcharts.com/highcharts#Point.update">Point.update</a></p>
+						</div>
 					</section>
 				</section>
 
@@ -462,8 +497,7 @@ $("#chart").waypoint( function(direction) {
 
 				<section>
 					<h2>Also: <a href="http://www.highcharts.com/products/highmaps">Highmaps</a></h2>
-					<pre><code data-trim>
-					</code></pre>
+					<iframe class="zoom" src="http://www.highcharts.com/maps/demo/color-axis" height="1010" width="130%" frameborder="0" style="background:white; padding:15px; border-radius:5px; max-width: 130%; max-height: 120%;"></iframe>
 				</section>
 
 
@@ -472,6 +506,7 @@ $("#chart").waypoint( function(direction) {
 					<h1>THE END</h1>
 					<p>Adam Nekola &bull; <a href="http://www.twitter.com/nekolaweb/">@nekolaweb</a></p>
 					<p>Find this presentation at: </p>
+					<p><a href="http://www.adamnekola.com/slides/highcharts/">http://www.adamnekola.com/slides/highcharts/</a></p>
 				</section>
 
 			</div>
@@ -484,7 +519,8 @@ $("#chart").waypoint( function(direction) {
 
 
 
-
+		<script src="js/jquery-1.11.1.min.js"></script>
+		<script src="js/highcharts.js"></script>
 
 
 
