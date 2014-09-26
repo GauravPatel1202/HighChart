@@ -125,7 +125,7 @@
 		<form>
 			<h3>You rock</h3>
 			<p>Thanks for taking the <a href="http://ona14.journalists.org/sessions/highcharts/#.VA8c3WRdW-U">Highcharts How-To</a> poll. I hope to see you in the session!</p>
-			<p>See up-to-the-minute results on the <a href="http://adam.slides/Highcharts-Presentation/dashboard.php">dashboard</a>, or wait to see them in the session.</p>
+			<p>See up-to-the-minute results on the <a href="http://www.adamnekola.com/slides/highcharts/dashboard.php">dashboard</a>, or wait to see them in the session.</p>
 		</form>
 
 
